@@ -8,7 +8,7 @@ abstract public class IOReader {
     int bufferSize;
 
     public IOReader() {
-        this.bufferMap = new LinkedHashMap<Integer, Integer>();
+        this.bufferMap = new LinkedHashMap<>();
         bufferSize = 100;
     }
 
@@ -44,7 +44,7 @@ abstract public class IOReader {
             if (newValue != lastValue) {
                 this.bufferMap.put(newKey,newValue);
 
-                LinkedHashMap<Integer, Integer> outputHashMap = new LinkedHashMap<Integer, Integer>();
+                LinkedHashMap<Integer, Integer> outputHashMap = new LinkedHashMap<>();
                 outputHashMap.put(newKey, newValue);
                 return outputHashMap;
 
@@ -59,11 +59,11 @@ abstract public class IOReader {
         }
     }
 
-    public void listen () throws InterruptedException {
+    public void listen() throws InterruptedException {
         while (true){
             String newInput = readRecord();
             int lastValue = -1;
-            int lastKey = -1;
+            int lastKey;
             if (bufferMap.size() >0) {
                 lastKey = getLastRecordKey();
                 lastValue = bufferMap.get(lastKey);
@@ -72,7 +72,6 @@ abstract public class IOReader {
             inputRecordFromString(newInput);
 
             int previousValue = lastValue;
-            int previousKey = lastKey;
 
             lastKey = getLastRecordKey();
             lastValue = bufferMap.get(lastKey);
